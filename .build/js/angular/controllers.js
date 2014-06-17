@@ -7,18 +7,28 @@ angular.module('myApp.controllers', [])
   	$scope.editOutlet = 0;
     socket.on("load:outlets", function(data){
       $scope.outlets = data.outlets;
-      $scope.editOutlet = 0;
     });
   	
     socket.on("outlet:update:response" , function(data){
-      console.log(data)
       if (data.success) {
         $('#outlet-model').modal('hide')
       }
     });
+    
+    socket.on("response:outlet:on", function(data){
+      $($('.outlets').find('.btn-group')[data.outlet]).children()
+        .addClass('btn-success');
+    });
 
+    socket.on("response:outlet:off", function(data){
+      $($('.outlets').find('.btn-group')[data.outlet]).children()
+        .removeClass('btn-success');
+    });
+    
   	$scope.openModal = function(index, $event){
   		$scope.editOutlet = index;
+      $('#timeOn').val($scope.outlets[index].time.on);
+      $('#timeOff').val($scope.outlets[index].time.off);
   		$('#outlet-model').modal();
   	};
 
@@ -29,8 +39,6 @@ angular.module('myApp.controllers', [])
       } else {
         socket.emit('toggle:outlet:on', {outlet: index});
       }
-      $this.toggleClass('btn-success');
-      $this.next().toggleClass('btn-success');
     };
 
     $scope.saveOutlet = function(){
@@ -38,5 +46,7 @@ angular.module('myApp.controllers', [])
         outlet: $scope.editOutlet,
         time : {on: $('#timeOn').val(), off: $('#timeOff').val()}
       });
+      $scope.outlets[$scope.editOutlet].time.on = $('#timeOn').val();
+      $scope.outlets[$scope.editOutlet].time.off = $('#timeOff').val();
     };
   }]);

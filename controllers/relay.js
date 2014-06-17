@@ -24,12 +24,17 @@ module.exports = function(pin){
     return;
   }
   var _gpio = gpio.export(pin);
+  
   return {
-    turnOnOutlet: function(){
-      _gpio.set();
+    turnOnOutlet: function(callback){
+      _gpio.set(function(){
+        callback();
+      });
     },
-    turnOffOutlet: function(){
-      _gpio.set(0);
+    turnOffOutlet: function(callback){
+      _gpio.set(0, function(){
+        callback();
+      });
     }
   }
 }
