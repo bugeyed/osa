@@ -1,0 +1,64 @@
+{>"layouts/master" /}
+
+{<body}
+
+	<div class="container">
+  <div class="row text-center">
+    <div ng-controller="outletsController">
+      <div class="outlets">
+        <div class="btn-group" ng-repeat="outlet in outlets">
+          <button type="button" class="btn btn-lg btn-primary"  ng-click="toggleOutlet($index, $event)">{{ outlet.label }}</button>
+          <button type="button" class="btn btn-lg btn-primary" ng-click="openModal($index, $event)">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="outlet-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">{{ outlets[editOutlet].label }}</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#timeSched" data-toggle="tab">Time</a></li>
+                <li><a href="#probeSched" data-toggle="tab">Probe</a></li>
+              </ul>
+              <div class="tab-content">
+                <div id="timeSched" class="tab-pane fade in active">
+                  <form role="form">
+                    <div class="form-group">
+                      <label for="timeOn">Time On:</label>
+                      <input type="text" class="form-control" id="timeOn" value="{{ outlets[editOutlet].time.on }}"/>
+                      <label for="timeOff">Time Off:</label>
+                      <input type="text" class="form-control" id="timeOff" value="{{ outlets[editOutlet].time.off }}"/>
+                      <span class="help-block">
+                        please use military time
+                      </span>
+                    </div>
+                  </form>
+                </div>
+                <div id="probeSched" class="tab-pane fade">
+                  <form role="form"></form>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" ng-click="saveOutlet()">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    
+
+{/body}
