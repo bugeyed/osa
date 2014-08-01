@@ -28,7 +28,7 @@ var addOutletToDb = function (num, pin, relay) {
     pin: pin,
     relay: relay,
     label: 'outlet ' + num,
-    time: {on: '', off: ''},
+    time: {on: {time: '', string: ''}, off: {time: '', string: ''}},
     data: {temp1: {on: 0, temp: 0}}
   };
   outletDB.insert(outlet);

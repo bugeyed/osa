@@ -25,7 +25,7 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
 
 app.requestAfterRoute = function requestAfterRoute(server) {
     // Run after all routes have been added.
-    Outlet.init([17,18,22,23,24,25]);
+    Outlet.init([17,18,22,23]);
 };
 
 

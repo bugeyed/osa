@@ -1,0 +1,7 @@
+<div class="col-xs-2">
+	<button type="button" class="on-off btn" ng-class="(outlet.on ? 'btn-success' : 'btn-danger')" ng-model="outlet.on" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="toggleState(index, $event)"><span class="glyphicon glyphicon-off"></span></button>
+</div>
+<div class="col-xs-8"><span class="label">{{outlet.label}}</span></div>
+<div class="col-xs-1">
+	<button class="btn btn-default edit" ng-click="open(index, outlet)"><span class="glyphicon glyphicon-edit"></span></button>
+</div>
