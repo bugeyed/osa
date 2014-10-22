@@ -3,9 +3,9 @@ angular.module('OSA.outlet', [])
 		var outletServiceTest = outletService;
 		$scope.outlets = outletService.getOutlets();
 		
-		$scope.$on('outletService:outlets:loaded', function(){
+		/*$scope.$on('outletService:outlets:loaded', function(){
 			$scope.outlets = outletService.getOutlets();
-		});
+		});*/
 		
 		$scope.open = function(index, outlet){
 			var modalInstance = $modal.open({
@@ -24,10 +24,8 @@ angular.module('OSA.outlet', [])
 		$scope.toggleState = function(index, $event){
 			if(angular.element($event.target).parent().hasClass('btn-danger')
 				|| angular.element($event.target).hasClass('btn-danger')) {
-				console.log('danger')
 				outletServiceTest.turnOnOutlet(index);
 			} else {
-				console.log('danger 1')
 				outletServiceTest.turnOffOutlet(index);
 			}
 		};
@@ -43,12 +41,14 @@ angular.module('OSA.outlet', [])
 			templateUrl: 'js/outlet/outlet.html'
 		};
 	})
-	.controller('OutletEditController', ['$scope', '$filter', '$modalInstance', function($scope, $filter, $modalInstance){
-		$scope.save = function () {
+	.controller('OutletEditController', ['$scope', '$filter', '$modalInstance', 'outletService'
+							, function($scope, $filter, $modalInstance, outletService){
+		$scope.save = function (index) {
 			var outlet = $scope.outlet;
 			outlet.time.on.time = $filter('date')(outlet.time.on.string,'HH:mm');
 			outlet.time.off.time = $filter('date')(outlet.time.off.string,'HH:mm');
 			$modalInstance.close();
+			outletService.saveOutlet(index);
 		};
 		$scope.$watch('outlet.time.on.string', function(time){
 			//console.log($filter('date')(time,'HH:mm'))
@@ -92,7 +92,6 @@ angular.module('OSA.outlet', [])
 		};
 
 		var turnOnOutlet = function(index){
-			console.log('hello on', index)
 			socket.emit('toggle:outlet:on', {outlet: index});
 		};
 
@@ -100,10 +99,31 @@ angular.module('OSA.outlet', [])
 			socket.emit('toggle:outlet:off', {outlet: index});
 		};
 
+		var saveOutlet = function(index){
+			var outlet = outletList[index];
+			var data = {
+				outlet: outlet.number,
+				index: index,
+				label: outlet.label,
+				time: {
+					on: {
+						string: outlet.time.on.string,
+						time: outlet.time.on.time
+					},
+					off: {
+						string: outlet.time.off.string,
+						time: outlet.time.off.time
+					}
+				}
+			}
+			socket.emit('outlet:update', data);
+		}
+
 		return {
 			getOutlets: getOutlets,
 			turnOffOutlet: turnOffOutlet,
-			turnOnOutlet: turnOnOutlet
+			turnOnOutlet: turnOnOutlet,
+			saveOutlet: saveOutlet
 		}
 	});
 

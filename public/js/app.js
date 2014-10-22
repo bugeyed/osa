@@ -6,6 +6,7 @@ var OSA = angular.module('OSA',[
 	'ui.bootstrap.buttons',
 	'OSA.home',
 	'OSA.outlet',
+  'OSA.pump',
 	'OSA.offCanvas',
 	'OSA.headerController'
 ]);
@@ -13,14 +14,21 @@ var OSA = angular.module('OSA',[
 OSA.config(['$routeProvider',
   function($routeProvider) {
   	$routeProvider.when('/outlets', {
-  		templateUrl: 'js/outlet/outlets.html',
-  		controller: 'HomeController'
+  		templateUrl: 'js/outlet/outlets.html'
   	})
+    .when('/pumps', {
+      templateUrl: 'js/pump/pumps.html'
+    })
   	.otherwise({
   		templateUrl: 'template/home.html'
   	});
 	}
 ]);
+
+OSA.run(['outletService', 'pumpService', function(outletService, pumpService){
+    var outlets = outletService.getOutlets();
+    var pumps = pumpService.getPumps();
+}]);
 
 OSA.factory('socket', function ($rootScope) {
   var socket = io.connect();
@@ -54,8 +62,7 @@ angular.module('OSA.headerController', [])
 }]);
 
 angular.module('OSA.home', [])
-	.controller('HomeController', ['$scope', 'outletService', function($scope, outletService){
+	.controller('HomeController', ['$scope', 'outletService', 'pumpService', function($scope, outletService, pumpService){
 		var outlets = outletService.getOutlets();
-		
+    var pumps = pumpService.getPumps();
 	}]);
-

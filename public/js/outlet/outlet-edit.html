@@ -1,4 +1,4 @@
-<div class="outlet-edit">
+<div class="pins-edit">
 	<h2>{{ outlet.label }}</h2>
 	<span>ON:</span><timepicker ng-model='outlet.time.on.string' ng-change="changed()"></timepicker>
 	<span>OFF:</span><timepicker ng-model='outlet.time.off.string'></timepicker>
@@ -7,5 +7,5 @@
 		<label for="outletLabel">Change Label:</label>
 		<input type="text" class="form-control" id="outletLabel" ng-model="outlet.label" value='{{ outlet.label}}'>
 	</div>
-	<button class="btn btn-primary" ng-click="save()">Save &amp; Close</button>
+	<button class="btn btn-primary" ng-click="save(index)">Save &amp; Close</button>
 </div>

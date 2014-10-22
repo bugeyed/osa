@@ -32,6 +32,7 @@
 	<script src="js/bootstrap/src/transition/transition.js"></script>
 	<script src="js/bootstrap/src/modal/modal.js"></script>
 	<script src="js/outlet/outlet.js"></script>
+	<script src="js/pump/pump.js"></script>
 	<script src="js/offcanvas/offcanvas.js"></script>
 	<script src="js/app.js"></script>
 </body>

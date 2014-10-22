@@ -4,6 +4,7 @@
 var kraken = require('kraken-js'),
     SocketManager = require('./controllers/SocketManager'),
     Outlet = require('./controllers/outlet'),
+    Pump = require('./controllers/pump'),
     app = {};
 
 
@@ -26,6 +27,7 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
 app.requestAfterRoute = function requestAfterRoute(server) {
     // Run after all routes have been added.
     Outlet.init([17,18,22,23]);
+    Pump.init([27,4]);
 };
 
 

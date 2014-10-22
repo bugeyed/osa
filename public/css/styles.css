@@ -181,53 +181,54 @@ a[href="#/settings"] {
 
 }
 
-#outlets ul {
+.pins ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-#outlets .row {
+.pins .row {
 	background: rgba(255,255,255,.75);
 	border-bottom: 1px solid #888;
 	box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, .8);
 	padding: 1rem .5rem;
 }
 
-#outlets .row .label {
+.pins .row .label {
 	color: #000;
 	font-size: 3rem;
 	line-height: 4rem;
 }
 
-#outlets ul li * {
+.pins ul li * {
 	display: inline-block;
 }
 
-#outlets ul li outlet {
+.pins ul li outlet,
+.pins ul li pump {
 	width: 100%;
 	position: relative;
 }
 
-#outlets ul li button {
+.pins ul li button {
 	position: absolute;
 	top:20px;
 }
 
-#outlets .on-off {
+.pins .on-off {
 	border-radius: 20px;
 	height: 40px;
 }
 
-#outlets ul li .edit {
+.pins ul li .edit {
 	right: 1rem;
 }
 
-#outlets ul li h2 {
+.pins ul li h2 {
 	width: 100%;
 	text-align: center;
 }
 
-.outlet-edit {
+.pins-edit {
 	padding: 1rem;
 }

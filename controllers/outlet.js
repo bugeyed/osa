@@ -48,14 +48,14 @@ var getTime = function () {
 
 var registerTimers = function () {
   Timer.registerInterval(1000, function(){
-    outletDB.find({"time.on": getTime()}, function (err, docs){
+    outletDB.find({"time.on.time": getTime()}, function (err, docs){
       for (var i = 0; i < docs.length; i++) {
         if (!docs[i].on) {
           Outlet.turnOn(parseInt(docs[i].number));
         }
       }
     });
-    outletDB.find({"time.off": getTime()}, function (err, docs){
+    outletDB.find({"time.off.time": getTime()}, function (err, docs){
       for (var i = 0; i < docs.length; i++) {
         if (docs[i].on) {
           Outlet.turnOff(parseInt(docs[i].number));
@@ -122,8 +122,11 @@ SocketManager.events.on('socket:connected', function(io){
       outletDB.update({number: parseInt(data.outlet)},
         {
           $set: {
-            'time.on': data.time.on,
-            'time.off': data.time.off
+            'label': data.label,
+            'time.on.string': data.time.on.string,
+            'time.on.time': data.time.on.time,
+            'time.off.string': data.time.off.string,
+            'time.off.time': data.time.off.time
           }
         }, function(err){
           if (err === null) {
